@@ -1,0 +1,160 @@
+/* ------------------------------------------------------------------------------------------------
+/  style.css
+/ 
+/  Copyright (C) 2008 James Aitken <http://www.loonypandora.com>
+/ 
+/  megazine.co.uk stylesheet
+------------------------------------------------------------------------------------------------ */
+
+html, body, div, span, h1, p, a, img, b, u, i {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+
+body {
+	font-family: Courier, "Courier New", monospace;
+	color: #ffffff;
+	background-color: #000000;
+	font-size: 18px;
+	line-height: 22px;
+	font-weight: bold;
+}
+
+
+
+/* Feed uses HTML formatting, let's reset that so we can style how we want */
+
+i, b { text-decoration: none; font-style: normal; }
+
+b 		{ color: #00ff00; }
+i 		{ color: #ff0000; }
+a 		{ color: #ffffff; text-decoration: underline; }
+h1		{ color: #ffff00; margin: 22px 0 22px 0; text-decoration: underline;}
+h1 a	{ color: #ffff00; }
+
+.container 	{ margin: 0 auto 0 auto; width: 740px; }
+
+.header 		{ margin: 11px 0 11px 0; }
+.header img { margin: 11px 0 0 0; }
+
+.date					{ float: right; }
+.teletext 		{ margin-left: 32px; 	background-color: #aa00aa; padding: 0 5px 1px 5px; float: left; }
+.zinePageNum 	{ float: left; }
+
+
+
+
+
+
+/* Text for special days, aligned to bottom of mega-zine test */
+
+.theme-message {
+	text-align: right;
+	position: absolute;
+	top: 116px;
+	margin-left: 209px;
+	width: 298px;
+}
+
+hr {
+	margin: -5px 0 1px 0;
+	padding: 0;
+	height: 1px;
+	border: 0;
+	color: #ffffff;
+	background-color: #ffffff;
+}
+
+.letternav {
+	position: relative;
+	line-height: 0;
+	top: -4px;
+	padding: 0 10px 0 10px;
+	left: 540px;
+	background-color: #000000;
+}
+
+.letternav a {
+	text-decoration: none;
+	padding: 0 4px 0 4px;
+	margin: 0 -4px 0 -4px;
+}
+
+
+
+/* Next + Prev links, and the date selector */
+
+.date-select 	{ margin-left: 50px; width: 370px; text-align: center; }
+.prev-letters	{ float: left; width: 185px; text-align: right; }
+.next-letters	{ float: right; width: 185px; text-align: left; }
+
+
+/* Form elements */
+
+select {
+	width: 180px;
+	height: 18px;
+	border: none;
+}
+
+input {
+	width: 50px;
+	height: 20px;
+	margin-top: -2px;
+	padding-bottom: 2px;
+	vertical-align: middle;
+	border: none;
+}
+
+
+
+/* Footer and copyright */
+
+.footer p {
+	clear: both;
+	margin: 17px 0 22px 0;
+	background-color: #ff0000;
+	padding: 4px 10px 6px 10px;
+	line-height: 18px;
+}
+
+.footer {
+	margin: 12px 0 0 0;
+	font-size: 14px;
+}
+
+.sosumi {
+	font-size: 12px;
+	clear: both;
+	line-height: 11px;
+	text-align: center;
+	color: #333333;
+}
+
+
+/* scrolly content box */
+
+.active		{ background-color: #333333; }
+.inactive	{ background-color: #000000; }
+
+#scrollbox {
+	overflow: hidden;
+	clear: both;
+	width: 740px;
+	margin: 0;
+}
+
+#content {
+	width: 3700px; /* 5 pages, 740px wide each */
+}
+	
+.section {
+	width: 740px;
+	float: left;
+}
+

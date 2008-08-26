@@ -1,0 +1,9 @@
+RewriteEngine on
+RewriteBase /
+
+DirectoryIndex zine.pl
+
+RewriteCond %{HTTP_HOST} ^mega-zine\.co\.uk$
+RewriteRule (.*) http://www.mega-zine.co.uk/$1 [R=Permanent]
+
+RewriteRule ^([^/]+)/([^/]+)/([^/]+) /zine.pl?year=$1;month=$2;day=$3; [QSA,L]
