@@ -54,7 +54,7 @@ print qq~<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 	<link rel="stylesheet" href="/style.css" type="text/css" />
 	<link rel="alternate" type="application/rss+xml" title="Teletext Mega-zine" href="http://feeds.teletext.co.uk/entertainment/mega-zine" />
 </head>
-<body>
+<body onload="autoScroll()">
 
 <div class="container">
 	$themeHTML

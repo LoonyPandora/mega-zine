@@ -7,7 +7,12 @@
 // ------------------------------------------------------------------------------------------------
 
 var currentPage = "one";	// Set the default first page
+var scrollerID = 0;
 
+
+function autoScroll() {
+	scrollerID = setInterval("ScrollArrow('right');", 15000);
+}
 
 function changeDate() {
 	dateSelector = document.getElementById('date');
@@ -32,6 +37,9 @@ function ScrollPage(link) {
 	offsetPos = getElementPos(document.getElementById('one'));
 	position[0] = position[0] - offsetPos[0];
 
+	clearInterval(scrollerID);
+	scrollerID = setInterval("ScrollArrow('right');", 15000);
+	
 	startScroll(theScrollbox, theScrollbox.scrollLeft, position[0]);
 }
 
