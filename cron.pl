@@ -4,13 +4,13 @@
 # cron.pl
 # =============================================================================
 #
-# Version:    1.0
-# Released:   22nd August 2008
+# Version:    1.1 ($Rev$)
+# Released:   1st September 2008
 #
 # Copyright (C) 2008 James Aitken <http://www.loonypandora.com>
 #
 # This is designed to be run by cron, to check the RSS feed during the day
-# It will produce no output to a browser.
+#
 ###############################################################################
 
 #use CGI::Carp qw(fatalsToBrowser);
@@ -20,7 +20,7 @@ use Time::Local;
 use LWP::Simple qw(get $ua);
 use XML::Simple;
 
-$ua->agent("Vegetable Revolution RSS Reader/1.0 (+http://www.vegetablerevolution.com)");
+$ua->agent("Vegetable Revolution RSS Reader/1.1 (+http://www.vegetablerevolution.com)");
 
 my $yMessages = "/home/u3437100/public_html/yabb/Messages";
 my $yBoards		= "/home/u3437100/public_html/yabb/Boards";
@@ -38,7 +38,14 @@ my $remote_feed = "http://feeds.teletext.co.uk/entertainment/mega-zine?format=xm
 #---- End of Settings ---------------------------------------------------------
 
 
-&processFeed;
+my (undef, undef, undef, $curDay, $curMonth, $curYear, undef, undef, undef) = gmtime(time);
+	$curDay			= sprintf("%.2d", $curDay);
+	$curMonth		= sprintf("%.2d", $curMonth +1); # gmtime is zero indexed
+	$curYear		+= 1900;
+
+if (!-e "$feedDir/$curYear-$curMonth-$curDay.zine") {
+	&processFeed;
+} 
 
 
 #------------------------------------------------------------------------------
