@@ -4,8 +4,8 @@
 # zine.pl
 # =============================================================================
 #
-# Version:    1.0
-# Released:   15th August 2008
+# Version:    1.1 ($Rev$)
+# Released:   1st September 2008
 #
 # Copyright (C) 2008 James Aitken <http://www.loonypandora.com>
 #
@@ -53,6 +53,7 @@ print qq~<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 	<script type="text/javascript" src="/utils.js"></script>
 	<link rel="stylesheet" href="/style.css" type="text/css" />
 	<link rel="alternate" type="application/rss+xml" title="Teletext Mega-zine" href="http://feeds.teletext.co.uk/entertainment/mega-zine" />
+	<link rel="icon" type="image/png" href="favicon.ico"/>
 </head>
 <body onload="autoScroll()">
 
@@ -78,11 +79,7 @@ print qq~<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 	<span class="letternav">
 		<a href="javascript:ScrollArrow('left');">&laquo;</a>
 		<span id="pages">
-			<a id="page-one" href="#one" class="active" onclick="ScrollPage('one'); return false">1</a>
-			<a id="page-two" href="#two" onclick="ScrollPage('two', 'scroller'); return false">2</a>
-			<a id="page-three" href="#three" onclick="ScrollPage('three'); return false">3</a>
-			<a id="page-four" href="#four" onclick="ScrollPage('four'); return false">4</a>
-			<a id="page-five" href="#five" onclick="ScrollPage('five'); return false">5</a> 
+			$navOutput
 		</span>
 		<a href="javascript:ScrollArrow('right');">&raquo;</a>
 	</span>
@@ -131,6 +128,9 @@ sub readLetters {
 	open(LETTERS, "$letterFile") or die "Cannot open file '$letterFile' $!";;
 		my @letters = <LETTERS>;
 	close(LETTERS);
+
+	my $classActive = "class=\"active\"";
+	my $x = 1;	
 	
 	for ($i = 0; $i <= $#letters; $i++) {
 		(undef, $thread, undef, $title, undef, undef, $message) = split(/\|/, $letters[$i]);
@@ -142,11 +142,17 @@ sub readLetters {
 		$message =~ s/\[\/(b|i)\]/<\/$1>/sig;
 
 		our $letterOutput .=  qq~
-			<div class="section" id="$numbers[$i+1]">
+			<div class="section" id="$numbers[$x]">
 				<h1><a href="http://www.vegetablerevolution.com/forum/topic/$thread">$title</a></h1>
 				<p>$message</p>
 			</div>
 		~;
+
+		our $navOutput .= qq~<a id="page-$numbers[$x]" href="#$numbers[$x]" $classActive onclick="ScrollPage('$numbers[$x]'); return false">$x</a>
+		~;
+		
+		$classActive = undef;
+		$x++;
 	}
 }
 
