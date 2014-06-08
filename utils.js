@@ -10,6 +10,21 @@ var currentPage = "one";	// Set the default first page
 var scrollerID = 0;
 
 
+function initKeyNav() {
+	document.onkeyup = keyhandler;
+}
+
+function keyhandler(e) {
+	if (!e) var e = window.event;
+	Key = e.which;
+		
+	if (Key == 37) {
+		ScrollArrow('left');
+	} else if (Key == 39) {
+		ScrollArrow('right');
+	}
+}
+
 function autoScroll() {
 	scrollerID = setInterval("ScrollArrow('right');", 15000);
 }
@@ -38,7 +53,7 @@ function ScrollPage(link) {
 	position[0] = position[0] - offsetPos[0];
 
 	clearInterval(scrollerID);
-	scrollerID = setInterval("ScrollArrow('right');", 15000);
+//	scrollerID = setInterval("ScrollArrow('right');", 15000); // Uncomment if autoscroll is on.
 	
 	startScroll(theScrollbox, theScrollbox.scrollLeft, position[0]);
 }
@@ -90,7 +105,7 @@ function scrollHorizontal() {
 		clearInterval(scrollanimation.timer);
 		scrollanimation.timer = null;
 	} else {
-		scrollanimation.element.scrollLeft = sineInOut(scrollanimation.time, scrollanimation.begin, scrollanimation.diff, scrollanimation.frames);
+		scrollanimation.element.scrollLeft = quintInOut(scrollanimation.time, scrollanimation.begin, scrollanimation.diff, scrollanimation.frames);
 		scrollanimation.time++;
 	}
 }
@@ -110,3 +125,15 @@ function getElementPos(elemFind) {
 function sineInOut(t, b, d, f) {
 	return -d/2 * (Math.cos(Math.PI*t/f) - 1) + b;
 }
+
+function quintInOut(t, b, c, d) {
+	if ((t/=d/2) < 1) return c/2*t*t*t*t*t + b;
+	return c/2*((t-=2)*t*t*t*t + 2) + b;
+};
+
+
+
+
+
+
+

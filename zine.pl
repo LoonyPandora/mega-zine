@@ -4,8 +4,8 @@
 # zine.pl
 # =============================================================================
 #
-# Version:    1.1 ($Rev$)
-# Released:   1st September 2008
+# Version:    1.1
+# Released:   16th December 2008
 #
 # Copyright (C) 2008 James Aitken <http://www.loonypandora.com>
 #
@@ -13,20 +13,26 @@
 #
 ###############################################################################
 
+# -----------------------------------------------------------------------------
+# CHANGELOG:
+# 1.1: (2008-12-16) Added xmas theme snowstorm, custom logo position,
+#                   and keyboard navigation
+# -----------------------------------------------------------------------------
+
 #use CGI::Carp qw(fatalsToBrowser);
 print "Content-Type: text/html\n\n";
 
 use Time::Local;
 
-my @numbers				= ('zero','one','two','three','four','five');
+my @numbers				= ('zero','one','two','three','four','five','six','seven','eight');
 
 # all months are zero indexed arrays, but humans aren't... so make January month 1.
 my @months 				= ('','January','February','March','April','May','June','July','August','September','October','November','December');
 my @short_months	= ('','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 my @days					= ('Sun','Mon','Tue','Wed','Thu','Fri','Sat');
 
-my $feedDir		= "/home/u3437100/public_html/mega-zine/feeds";
-my $themeDir	= "/home/u3437100/public_html/mega-zine/themes";
+my $feedDir		= "/var/www/mega-zine/feeds";
+my $themeDir	= "/var/www/mega-zine/themes";
 
 
 #---- End of Settings ---------------------------------------------------------
@@ -51,11 +57,12 @@ print qq~<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 	<title>Mega-Zine</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<script type="text/javascript" src="/utils.js"></script>
+	$xmasJS
 	<link rel="stylesheet" href="/style.css" type="text/css" />
 	<link rel="alternate" type="application/rss+xml" title="Teletext Mega-zine" href="http://feeds.teletext.co.uk/entertainment/mega-zine" />
 	<link rel="icon" type="image/png" href="favicon.ico"/>
 </head>
-<body onload="autoScroll()">
+<body onload="initKeyNav()">
 
 <div class="container">
 	$themeHTML
@@ -64,7 +71,7 @@ print qq~<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 		<span class="teletext"><a href="http://www.vegetablerevolution.com/">The Vegetable Revolution</a> + <a href="http://www.teletext.co.uk/entertainmentchat/mega-zine/default.aspx">Teletext.co.uk</a></span>
 		<span class="date">$days[$viewWDay], $GET{'day'} $short_months[$GET{'month'}] $GET{'year'}</span>
 		
-		<img src="/themes/mega-zine-text.png" height="88" style="float: left;" alt="Mega-Zine" />
+		<img src="/themes/mega-zine-text.png" style="height: 88px; float: left;" alt="Mega-Zine" />
 		$themeImage	
 	</div>
 
@@ -79,7 +86,7 @@ print qq~<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 	<span class="letternav">
 		<a href="javascript:ScrollArrow('left');">&laquo;</a>
 		<span id="pages">
-			$navOutput
+		$navOutput
 		</span>
 		<a href="javascript:ScrollArrow('right');">&raquo;</a>
 	</span>
@@ -95,11 +102,11 @@ print qq~<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 			<input type="submit" value="Go" onclick="changeDate(); return false"/>
 		</span>
 
-		<p>Comrade, join <a href="http://www.vegetablerevolution.com">The Vegetable Revolution</a> and show your patriotism. To get in the 'Zine, Text 07624 809 881 (normal SMS cost), write to Mega-Zine, PO Box 32549, London W4 5TS, or email <a href="mailto:mega-zine\@teletext.co.uk">mega-zine\@teletext.co.uk</a>. Please remember to include your "name"</p>
+		<p>Comrade, join <a href="http://www.vegetablerevolution.com">The Vegetable Revolution</a> and show your patriotism. To get in the 'Zine, Text 07624 809 881 (normal SMS cost), write to Mega-Zine, PO Box 32549, London W4 5TS, or email <a href="mailto:mega-zine\@teletext.co.uk">mega-zine\@teletext.co.uk</a>. Remember to include your humorous pseudonym.</p>
 	</div>
 	
 	<div class="sosumi">
-		<p>Mega-Zine is a trademark of Teletext Ltd. The content on this site is provided be the Mega-Zine RSS feed, and is used with persmission. Any similarity to persons living or dead is purely coincidental.</p>
+		<p>Mega-Zine is a trademark of Teletext Ltd. The content on this site is provided by the Mega-Zine RSS feed, and is used with persmission. Any similarity to persons living or dead is purely coincidental.</p>
 	</div>
 
 </div>
@@ -239,7 +246,12 @@ sub checkTheme {
 	if (!$image) { $image = "davord.png"; $text = "Davord"; }
 	else { our $themeHTML	= qq~<div class="theme-message">$text</div>~; }
 	
-	our $themeImage	= qq~<img src="/themes/$image" height="88" style="float: right;" alt="$text" />~;
+	if ($image eq 'xmasdavord.png') {
+		our $themeImage	= qq~<img src="/themes/$image" style="width: 160px; float: right; margin-top: -24px; position: relative; z-index: -1;" alt="$text" />~;
+		our $xmasJS = qq~<script type="text/javascript" src="/snow/snowstorm.js"></script>~;
+	} else {
+		our $themeImage	= qq~<img src="/themes/$image" style="height: 88px; float: right;" alt="$text" />~;
+	}	
 
 }
 

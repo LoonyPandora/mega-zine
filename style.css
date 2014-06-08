@@ -48,9 +48,6 @@ h1 a	{ color: #ffff00; }
 
 
 
-
-
-
 /* Text for special days, aligned to bottom of mega-zine test */
 
 .theme-message {
@@ -73,7 +70,7 @@ hr {
 .letternav {
 	position: relative;
 	line-height: 0;
-	top: -4px;
+	top: -3px;
 	padding: 0 10px 0 10px;
 	left: 540px;
 	background-color: #000000;
@@ -81,7 +78,7 @@ hr {
 
 .letternav a {
 	text-decoration: none;
-	padding: 0 4px 0 4px;
+	padding: 2px 4px 0 4px;
 	margin: 0 -4px 0 -4px;
 }
 
@@ -92,6 +89,7 @@ hr {
 .date-select 	{ margin-left: 50px; width: 370px; text-align: center; }
 .prev-letters	{ float: left; width: 185px; text-align: right; }
 .next-letters	{ float: right; width: 185px; text-align: left; }
+
 
 
 /* Form elements */
@@ -135,6 +133,7 @@ input {
 	text-align: center;
 	color: #333333;
 }
+
 
 
 /* scrolly content box */
