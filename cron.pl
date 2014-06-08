@@ -4,7 +4,7 @@
 # cron.pl
 # =============================================================================
 #
-# Version:    1.1 ($Rev$)
+# Version:    1.1 ($Rev: 10 $)
 # Released:   1st September 2008
 #
 # Copyright (C) 2008 James Aitken <http://www.loonypandora.com>
@@ -30,7 +30,7 @@ my $feedDir		= "/home/u3437100/public_html/mega-zine/feeds";
 my @months 				= ('January','February','March','April','May','June','July','August','September','October','November','December');
 my @short_months	= ('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 my @days					= ('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-my @page_numbers		= ('Page One','Page Two','Page Three','Page Four','Page Five');
+my @page_numbers		= ('Page One','Page Two','Page Three','Page Four','Page Five','Page Six','Page Seven','Page Eight');
 
 my $remote_feed = "http://feeds.teletext.co.uk/entertainment/mega-zine?format=xml";
 
@@ -79,7 +79,14 @@ sub processFeed {
 		$entry->{'t:full_article'} =~ /<i>(.+?)<\/i>/sig;		my $zine_name = $1;
 		$entry->{'t:full_article'} =~ /<b>(.+?)<\/b>/sig;		my $wlw_reply = $1;
 
-		# Wrap and change to BBCode, clean up br tags, and remove all newlines.
+		# Remove all newlines. chomp just get's 'em at the end.
+		$entry->{'t:full_article'} =~ s/\n|\r|\r\n//sig;
+		$entry->{'uid'}						 =~ s/\n|\r|\r\n//sig;
+		$entry->{'title'}					 =~ s/\n|\r|\r\n//sig;
+		$zine_name								 =~ s/\n|\r|\r\n//sig;
+		$wlw_reply									 =~ s/\n|\r|\r\n//sig;
+
+		# Wrap and change to BBCode, clean up br tags
 		my $yTitle = qq~\[color=#0000ff\]$entry->{'title'}\[/color\]<br /><br />~;
 		my $yPageNum = qq~\[color=#993366\]$page_numbers[$z]\[/color\]<br /><br />~;
 		
@@ -88,8 +95,7 @@ sub processFeed {
 		$entry->{'t:full_article'} =~ s/<\/i>/\[\/i\]\[\/color\]/sig;
 		$entry->{'t:full_article'} =~ s/<\/b>/\[\/b\]\[\/color\]/sig;
 		$entry->{'t:full_article'} =~ s/<br\/>/<br \/>/sig;
-		$entry->{'t:full_article'} =~ s/\n|\r|\r\n//sig;
-
+		
 		# Change any HTML Entities back to their real values. Only pipes are escaped.
 		$entry->{'t:full_article'} =~ s/&#39;/'/sig;
 		$entry->{'t:full_article'} =~ s/\|/\\\|/sig;
